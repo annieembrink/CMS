@@ -21,8 +21,6 @@ class Template extends Database
             $_SESSION['message'] = "Successfully created user!";
             header("location: login.php");
             exit();
-
-            // return $this->db->lastInsertId();
         } catch (\Throwable $th) {
             throw $th;
         }

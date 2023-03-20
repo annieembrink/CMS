@@ -46,6 +46,7 @@ if($_POST)
 
 <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
 
+<a href="logout.php">Logout</a>
 
     <h1>TEMPLATE</h1>
     
