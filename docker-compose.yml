@@ -9,7 +9,7 @@ services:
             - ./configs/custom-apache2.conf:/etc/apache2/apache2.conf
             - ./configs/custom-php.ini:/usr/local/etc/php/php.ini
         ports:
-            - "8088:80"
+            - "8087:80"
     mysql:
         image: mariadb:latest
         environment:
