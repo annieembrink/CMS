@@ -32,6 +32,7 @@ if($_POST)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+    <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title><?php echo $title ?></title>
 </head>
 <body>
@@ -46,7 +47,7 @@ if($_POST)
 
 <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
 
-<a href="logout.php">Logout</a>
+    <a id="logout" href="logout.php">Logout</a>
 
     <h1>TEMPLATE</h1>
     
