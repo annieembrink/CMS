@@ -1,6 +1,8 @@
 <?php 
 
 declare(strict_types=1);
+session_start();
+
 include_once 'cms-config.php';
 include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
@@ -8,19 +10,16 @@ include_once ROOT . '/cms-includes/models/Template.php';
 
 $template = new Template();
 $username = "";
-$password = "";
+$form_password = "";
 
 $title = "Register"; 
-
-session_start();
 
 if($_POST) 
 {
     $username = $_POST['username'];
-    $form_password = $_POST['password'];
-    $password = password_hash($form_password, PASSWORD_DEFAULT);
-    $result = $template->register($username, $password);
-    header("location: login.php");
+    $form_password = $_POST['form_password'];
+    $hashed_password = password_hash($form_password, PASSWORD_DEFAULT);
+    $result = $template->register($username, $hashed_password);
 }
 
 ?>
@@ -44,13 +43,16 @@ if($_POST)
         }
     ?>
 
+<?php include ROOT . '/cms-includes/partials/nav.php'; ?>
+
+
 <h1>Create account</h1>
     
 <!-- REGISTER -->
 <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
 
 <input type="text" name="username" placeholder="username" value="<?= $username ?>">
-<input type="password" name="password" placeholder="password" value="<?= $password ?>">
+<input type="password" name="form_password" placeholder="password" value="<?= $form_password ?>">
 <input type="submit" value="register">
 
 </form>

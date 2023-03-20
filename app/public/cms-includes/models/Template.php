@@ -7,18 +7,26 @@ class Template extends Database
         parent::__construct();
     }
 
-    public function register($username, $password)
+    public function register($username, $hashed_password)
     {
         try {
             $sql = "INSERT INTO user (username, password) VALUES (:username, :password)";
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':username', $username, PDO::PARAM_STR);
-            $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+            $stmt->bindValue(':password', $hashed_password, PDO::PARAM_STR);
             $stmt->execute();
-            return $this->db->lastInsertId();
+
+            $result = $this->db->lastInsertId();
+            
+            $_SESSION['message'] = "Successfully created user!";
+            header("location: login.php");
+            exit();
+
+            // return $this->db->lastInsertId();
         } catch (\Throwable $th) {
             throw $th;
         }
+
     }
 
     public function login($username, $form_password)
@@ -29,16 +37,21 @@ class Template extends Database
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $hash = $user['password'];
-            $correct_password = password_verify($form_password, $hash);
-            var_dump($correct_password);
+            $hash_from_db = $user['password'];
+
+            $correct_password = password_verify($form_password, $hash_from_db);
 
             if(!$correct_password)
             {
                 $_SESSION['message'] = "Invalid password";
                 header("location: login.php");
                 exit();
-            }
+            } 
+
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['message'] = "Successfully logged in";
+            header("location: template.php");
+            exit();
 
         } catch (\Throwable $th) {
             throw $th;
