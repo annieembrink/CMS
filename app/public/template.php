@@ -3,6 +3,11 @@
 declare(strict_types=1);
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 include_once 'cms-config.php';
 include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
@@ -12,7 +17,7 @@ $template = new Template();
 $username = "";
 $password = "";
 
-$title = "Template"; 
+$title = "DASHBOARD"; 
 
 if($_POST) 
 {
@@ -49,16 +54,7 @@ if($_POST)
 
     <a id="logout" href="logout.php">Logout</a>
 
-    <h1>TEMPLATE</h1>
+    <h1>DASHBOARD</h1>
     
-<!-- REGISTER -->
-<form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
-
-<input type="text" name="username" placeholder="username" value="<?= $username ?>">
-<input type="password" name="password" placeholder="password" value="<?= $password ?>">
-<input type="submit" value="register">
-
-</form>
-
 </body>
 </html>

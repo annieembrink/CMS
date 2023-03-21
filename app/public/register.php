@@ -18,7 +18,7 @@ if($_POST)
 {
     $username = $_POST['username'];
 
-    
+
     $form_password = $_POST['form_password'];
     $hashed_password = password_hash($form_password, PASSWORD_DEFAULT);
     $result = $template->register($username, $hashed_password);
@@ -33,6 +33,7 @@ if($_POST)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+    <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title><?php echo $title ?></title>
 </head>
 <body>
