@@ -64,7 +64,7 @@ class Template extends Database
     
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['message'] = "Successfully logged in";
-                header("location: template.php");
+                header("location: dashboard.php");
                 exit();
             }
         } catch (\Throwable $th) {

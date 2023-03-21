@@ -14,19 +14,8 @@ include_once ROOT . '/cms-includes/models/Database.php';
 include_once ROOT . '/cms-includes/models/Template.php';
 
 $template = new Template();
-$username = "";
-$password = "";
 
-$title = "DASHBOARD"; 
-
-if($_POST) 
-{
-    $username = $_POST['username'];
-    $form_password = $_POST['password'];
-    $password = password_hash($form_password, PASSWORD_DEFAULT);
-    $result = $template->register($username, $password);
-    header("location: login.php");
-}
+$title = "Dashboard"; 
 
 ?>
 
@@ -54,7 +43,7 @@ if($_POST)
 
     <a id="logout" href="logout.php">Logout</a>
 
-    <h1>DASHBOARD</h1>
+    <h1>Create new page</h1>
     
 </body>
 </html>

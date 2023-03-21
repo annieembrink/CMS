@@ -4,7 +4,7 @@
 
 ---
 
-**OBS!** Ändra namnet på filen `app/public/cms-config-template.php` till `app/public/cms-config.php`. Se instruktioner nedan.
+**OBS!** Ändra namnet på filen `app/public/cms-config-dashboard.php` till `app/public/cms-config.php`. Se instruktioner nedan.
 
 ---
 
@@ -61,7 +61,7 @@ project
 │   │   │   │   └── header.php
 │   │   │   ├── global-functions.php
 │   │   │   └── .htaccess
-│   │   └── cms-config-template.php 
+│   │   └── cms-config-dashboard.php 
 │   │   └── cms-config.php
 │   │   └── index.php
 │   │   └── sample.php
@@ -174,7 +174,7 @@ När du loggat in visas den databas som skapades i samband med att instruktiner 
 
 ![index.php](screenshots/mysql-db.png)
 
-Navigera till `localhost:8088/template.php`. 
+Navigera till `localhost:8088/dashboard.php`. 
 Sidan visar header, footer och ett nav element via php include(). Sidan inkluderar filer som är användbara i en applikation.
 
 ```php
@@ -231,7 +231,7 @@ class DisplayDBVersion extends Database
 
 ```
 
-I `template.php` används metoden `DisplayDBVersion`.
+I `dashboard.php` används metoden `DisplayDBVersion`.
 
 ```php
     <?php
@@ -292,7 +292,7 @@ Inställningar som handlar om databasen i installationsfasen ovan ska sedan ange
 
 Med ett villkor anges vilka databasvariabler som ska vara gällande. Kontrollen använder `$_SERVER['SERVER_NAME']`. Om url:en innehåller `localhost` används namnen som återfinns i `docker-compose-yml`.
 
-Kopiera filen `cms-config-template.php` till en ny fil med namnet `cms-config.php`. Ange inställningar som gäller för *production*
+Kopiera filen `cms-config-dashboard.php` till en ny fil med namnet `cms-config.php`. Ange inställningar som gäller för *production*
 
 ```php
 // auto set database server 
