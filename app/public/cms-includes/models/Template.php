@@ -115,6 +115,14 @@ class Template extends Database
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function delete_page($id)
+    {
+        $sql = "DELETE FROM page WHERE id=$id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
 
 ?>
