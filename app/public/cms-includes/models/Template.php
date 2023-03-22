@@ -7,6 +7,15 @@ class Template extends Database
         parent::__construct();
     }
 
+    public function select_all_pages()
+    {
+        $sql = "SELECT * FROM page";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function select_all_users()
     {
         $sql = "SELECT * FROM user";
@@ -16,13 +25,12 @@ class Template extends Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function select_all_pages()
+    public function select_one_user($id)
     {
-        $sql = "SELECT * FROM page";
+        $sql = "SELECT * FROM user WHERE id=$id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function register($username, $hashed_password)

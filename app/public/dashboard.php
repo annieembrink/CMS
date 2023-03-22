@@ -16,6 +16,7 @@ include_once ROOT . '/cms-includes/models/Template.php';
 $template = new Template();
 
 $title = "Dashboard"; 
+$result = $template->select_one_user($_SESSION['user_id']);
 
 ?>
 
@@ -44,6 +45,7 @@ $title = "Dashboard";
     <a id="logout" href="logout.php">Logout</a>
 
     <h1>Dashboard</h1>
+    <h2>Welcome <?= $result['username']?></h2>
     
 </body>
 </html>
