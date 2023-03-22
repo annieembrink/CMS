@@ -37,7 +37,7 @@ $template = new Template();
     ?>
     <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
     <a href="logout.php">Logout</a>
-    <h1>Pages</h1>
+    <h1>Published pages</h1>
     <?php 
 
         // Query the database
@@ -53,6 +53,7 @@ $template = new Template();
 
                 echo "<aside>
                 <p>" . $row['page_title'] . "</p>
+                <small> Created by user_id: " . $row['user_id'] . "</small>
                 <div>
                     <a href='delete.php?id=$id'>Delete</a>
                     <a href='edit.php?id=$id'>Edit</a>

@@ -37,7 +37,7 @@ $template = new Template();
     ?>
     <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
     <a href="logout.php">Logout</a>
-    <h1>Pages</h1>
+    <h1>Drafts</h1>
     <?php 
         // Query the database
         // $sqlquery = "SELECT * FROM page";
@@ -46,11 +46,13 @@ $template = new Template();
         // print_r($result);
 
         foreach ($result as $row) {
+            $created_by_user = $template->select_one_user($row['user_id']);
             if($row['visibility'] == 0) {
                 $id = $row['id']; 
 
                 echo "<aside>
                 <p>" . $row['page_title'] . "</p>
+                <small> Created by user_id: " . $created_by_user['username'] . "</small>
                 <div>
                     <a href='delete.php?id=$id'>Delete</a>
                     <a href='edit.php?id=$id'>Edit</a>
