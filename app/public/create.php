@@ -23,11 +23,15 @@ $visibility = false;
 
 if($_POST) 
 {
-
     $page_title = $_POST['page_title'];
     $content = $_POST['content'];
-    $visibility = $_POST['visibility'];
 
+    if (isset($_POST['visibility'])) {
+        $visibility = ($_POST['visibility'] === 'true') ? true : false;
+    } else {
+        $visibility = false;
+    }
+    
     //trim
     //save value if only one is filled
     if(!empty($page_title) && !empty($content)) {
@@ -35,7 +39,6 @@ if($_POST)
     } else {
         $_SESSION['message'] = "All input fields have to be filled";
     }
-    
 }
 
 ?>
@@ -66,17 +69,6 @@ if($_POST)
 
     <h1>Create new page</h1>
 
-    <div>
-        <p># Heading level 1</p>
-        <p>## Heading level 2...</p>
-        <p>...and so on until level 6</p>
-        <p>**bold text**</p>
-        <p>*italicized text*</p>
-        <p>***bold and italic***</p>
-        <p>- First li in ul</p>
-        <p><a href="https://www.markdownguide.org/basic-syntax/">For more markdown syntax</a></p>
-    </div>
-
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
         <label for="page_title">Page title</label>
@@ -90,7 +82,6 @@ if($_POST)
         <input type="radio" name="visibility" id="private" value="false" <?php if (!$visibility) { echo "checked"; } ?>>Save draft
 
         <br>
-        <a href="view.php">Preview page</a>
         <input type="submit" value="submit">
     </form>
     

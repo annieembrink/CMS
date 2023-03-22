@@ -12,38 +12,57 @@ include_once 'cms-config.php';
 include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
 include_once ROOT . '/cms-includes/models/Template.php';
+require_once "Parsedown.php";
 
 $template = new Template();
 
-$title = "All pages"; 
-
 ?>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> 
     <link rel="stylesheet" href="/cms-content/styles/style.css">
-    <title><?php echo $title ?></title>
+    <title>Pages</title>
 </head>
 <body>
-
-<?php 
-        // Write out message from other pages if exists
-        if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-            echo "<article><aside><p>". $_SESSION['message'] . "</p></aside></article>";
-            unset( $_SESSION['message']); // remove it once it has been written
-        }
+    <main>
+    <?php 
+    // Write out message from other pages if exists
+    if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
+        echo "<article><aside><p>". $_SESSION['message'] . "</p></aside></article>";
+        unset( $_SESSION['message']); // remove it once it has been written
+    }
     ?>
+    <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
+    <a href="logout.php">Logout</a>
+    <h1>Pages</h1>
+    <?php 
+        // Query the database
+        $sqlquery = "SELECT * FROM page";
+        $result = $template->select_all_pages($sqlquery);
 
-<?php include ROOT . '/cms-includes/partials/nav.php'; ?>
+        // print_r($result);
 
-    <a id="logout" href="logout.php">Logout</a>
+        foreach ($result as $row) {
+            # code...
+            // print_r($key);
+            $id = $row['id']; 
 
-    <h1>All pages</h1>
-    
+            echo "<aside>
+            <p>" . $row['page_title'] . "</p>
+            <div>
+                <a href='delete.php?id=$id'>Delete</a>
+                <a href='edit.php?id=$id'>Edit</a>
+                <a href='view.php?id=$id'>View</a>
+            </div>
+        </aside>
+        <hr>";
+            
+        }
+
+    ?>
+    </main>
 </body>
 </html>

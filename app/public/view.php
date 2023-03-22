@@ -42,9 +42,7 @@ $page = $template->view_page($id);
         }
     ?>
 
-<?php include ROOT . '/cms-includes/partials/nav.php'; ?>
-
-    <a id="logout" href="logout.php">Logout</a>
+    <a id="" href="allpages.php">Back</a>
 
     <h1>Preview page</h1>
 
