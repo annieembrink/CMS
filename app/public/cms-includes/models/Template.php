@@ -7,6 +7,24 @@ class Template extends Database
         parent::__construct();
     }
 
+    public function select_all_users()
+    {
+        $sql = "SELECT * FROM user";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function select_all_pages()
+    {
+        $sql = "SELECT * FROM page";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function register($username, $hashed_password)
     {
         try {
@@ -70,6 +88,16 @@ class Template extends Database
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function create_page($page_title, $content, $visibility)
+    {
+        $sql = "INSERT INTO page (page_title, content, visibility) VALUES (:page_title, :content, :visibility)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':page_title', $page_title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+        $stmt->bindValue(':visibility', $visibility, PDO::PARAM_BOOL);
+        $stmt->execute();
     }
 }
 

@@ -3,26 +3,44 @@
 declare(strict_types=1);
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 include_once 'cms-config.php';
 include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
 include_once ROOT . '/cms-includes/models/Template.php';
+require_once "Parsedown.php";
 
 $template = new Template();
-$username = "";
-$form_password = "";
 
-$title = "Login"; 
+$title = "Preview"; 
+$id = $_GET['id'];
+
+// Query the database
+$sqlquery = "SELECT * FROM page WHERE id=$id";
+$result = $pdo->query($sqlquery);
+$page = $result->fetch();
+
+echo $page;
 
 if($_POST) 
 {
-    //if input field is not empty...
-    //use trim
-    //dont allow all signs...
-    $username = $_POST['username'];
-    $form_password = $_POST['form_password'];
 
-    $result = $template->login($username, $form_password);
+    $page_title = $_POST['page_title'];
+    $content = $_POST['content'];
+    $visibility = $_POST['visibility'];
+
+    //trim
+    //save value if only one is filled
+    if(!empty($page_title) && !empty($content)) {
+        $result = $template->create_page($page_title, $content, $visibility);
+    } else {
+        $_SESSION['message'] = "All input fields have to be filled";
+    }
+    
 }
 
 ?>
@@ -45,21 +63,20 @@ if($_POST)
             echo "<article><aside><p>". $_SESSION['message'] . "</p></aside></article>";
             unset( $_SESSION['message']); // remove it once it has been written
         }
-        ?>
+    ?>
 
-    <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
+<?php include ROOT . '/cms-includes/partials/nav.php'; ?>
 
+    <a id="logout" href="logout.php">Logout</a>
 
-<h1>Login</h1>
+    <h1>Preview page</h1>
+
+    <?php 
+        $Parsedown = new Parsedown();
+        $html = $Parsedown->text($page['content']);
+
+        echo $html;
+    ?>
     
-<!-- Login -->
-<form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
-
-<input type="text" name="username" placeholder="username" value="<?= $username ?>">
-<input type="password" name="form_password" placeholder="password" value="<?= $form_password ?>">
-<input type="submit" value="login">
-
-</form>
-
 </body>
 </html>

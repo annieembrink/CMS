@@ -18,7 +18,6 @@ if($_POST)
 {
     $username = $_POST['username'];
 
-
     $form_password = $_POST['form_password'];
     $hashed_password = password_hash($form_password, PASSWORD_DEFAULT);
     $result = $template->register($username, $hashed_password);
