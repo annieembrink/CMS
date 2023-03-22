@@ -48,6 +48,8 @@ if($_POST) {
     //trim
     //save value if only one is filled
     if(!empty($page_title) && !empty($content)) {
+        //passinfo bout who changed page? update user_id in page?
+        //Update when page was edited?
         $result = $template->edit_page($_SESSION['page_id'], $page_title, $content, $visibility);
         header('Location: allpages.php');
         unset($_SESSION['page_id']);

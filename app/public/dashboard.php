@@ -16,7 +16,9 @@ include_once ROOT . '/cms-includes/models/Template.php';
 $template = new Template();
 
 $title = "Dashboard"; 
-$result = $template->select_one_user($_SESSION['user_id']);
+$logged_in_user = $template->select_one_user($_SESSION['user_id']);
+$all_users = $template->select_all_users();
+$all_pages = $template->select_all_pages();
 
 ?>
 
@@ -45,7 +47,22 @@ $result = $template->select_one_user($_SESSION['user_id']);
     <a id="logout" href="logout.php">Logout</a>
 
     <h1>Dashboard</h1>
-    <h2>Welcome <?= $result['username']?></h2>
+    <h2>Welcome <?= $logged_in_user['username']?></h2>
+
+    <h4>All users in your project: </h4>
+    <?php
+    foreach ($all_users as $user) {
+        echo "<p>" . $user['username'] . "</p>";
+    }
+    ?>
+    <h4>Published pages yet: </h4>
+    <?php
+    foreach ($all_pages as $page) {
+        if($page['visibility'] == 1) {
+            echo "<p>" . $page['page_title'] . "</p>";
+        }
+    }
+    ?>
     
 </body>
 </html>
