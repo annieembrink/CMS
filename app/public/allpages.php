@@ -37,31 +37,33 @@ $template = new Template();
     ?>
     <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
     <a href="logout.php">Logout</a>
-    <h1>Pages</h1>
+    <h1>Published pages</h1>
     <?php 
+
         // Query the database
-        $sqlquery = "SELECT * FROM page";
-        $result = $template->select_all_pages($sqlquery);
+        // $sqlquery = "SELECT * FROM page";
+        $result = $template->select_all_pages();
 
         // print_r($result);
 
         foreach ($result as $row) {
             # code...
-            // print_r($key);
-            $id = $row['id']; 
+            if($row['visibility'] == 1) {
+                $id = $row['id']; 
 
-            echo "<aside>
-            <p>" . $row['page_title'] . "</p>
-            <div>
-                <a href='delete.php?id=$id'>Delete</a>
-                <a href='edit.php?id=$id'>Edit</a>
-                <a href='view.php?id=$id'>View</a>
-            </div>
-        </aside>
-        <hr>";
-            
-        }
-
+                echo "<aside>
+                <p>" . $row['page_title'] . "</p>
+                <small> Created by user_id: " . $row['user_id'] . "</small>
+                <div>
+                    <a href='delete.php?id=$id'>Delete</a>
+                    <a href='edit.php?id=$id'>Edit</a>
+                    <a href='view.php?id=$id'>View</a>
+                </div>
+            </aside>
+            <hr>";
+            }
+            }
+              
     ?>
     </main>
 </body>

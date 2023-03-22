@@ -7,6 +7,15 @@ class Template extends Database
         parent::__construct();
     }
 
+    public function select_all_pages()
+    {
+        $sql = "SELECT * FROM page";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function select_all_users()
     {
         $sql = "SELECT * FROM user";
@@ -16,13 +25,12 @@ class Template extends Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function select_all_pages()
+    public function select_one_user($id)
     {
-        $sql = "SELECT * FROM page";
+        $sql = "SELECT * FROM user WHERE id=$id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function register($username, $hashed_password)
@@ -90,10 +98,12 @@ class Template extends Database
         }
     }
 
-    public function create_page($page_title, $content, $visibility)
+    public function create_page($user_id, $page_title, $content, $visibility)
     {
-        $sql = "INSERT INTO page (page_title, content, visibility) VALUES (:page_title, :content, :visibility)";
+        $user_id = intval($user_id);
+        $sql = "INSERT INTO page (user_id, page_title, content, visibility) VALUES (:user_id, :page_title, :content, :visibility)";
         $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_title', $page_title, PDO::PARAM_STR);
         $stmt->bindValue(':content', $content, PDO::PARAM_STR);
         $stmt->bindValue(':visibility', $visibility, PDO::PARAM_BOOL);
@@ -106,6 +116,28 @@ class Template extends Database
         $stmt = $this->db->prepare($pagequery);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function delete_page($id)
+    {
+        $sql = "DELETE FROM page WHERE id=$id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function edit_page($id, $page_title, $content, $visibility)
+    {
+        //make sure it's an int
+        $id = intval($id);
+        //change all to id=:id so avoid sql injections
+        $sql = "UPDATE page SET page_title = :page_title, content = :content, visibility = :visibility WHERE id=:id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_title', $page_title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+        $stmt->bindValue(':visibility', $visibility, PDO::PARAM_BOOL);
+        return $stmt->execute();
     }
 }
 
