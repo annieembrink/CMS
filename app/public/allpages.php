@@ -39,6 +39,7 @@ $template = new Template();
     <a href="logout.php">Logout</a>
     <h1>Pages</h1>
     <?php 
+
         // Query the database
         // $sqlquery = "SELECT * FROM page";
         $result = $template->select_all_pages();

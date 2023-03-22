@@ -77,9 +77,9 @@ if($_POST)
         <label for="content">Content</label>
         <textarea required name="content" id="content" cols="30" rows="10"></textarea>
 
-        <input type="radio" name="visibility" id="public" value="true" <?php if ($visibility) { echo "checked"; } ?>>Publish
+        <input type="radio" name="visibility" id="public" value="true" <?php if (!$visibility) { echo "checked"; } ?>>Public
         
-        <input type="radio" name="visibility" id="private" value="false" <?php if (!$visibility) { echo "checked"; } ?>>Save draft
+        <input type="radio" name="visibility" id="private" value="false" <?php if ($visibility) { echo "checked"; } ?>>Draft
 
         <br>
         <input type="submit" value="submit">

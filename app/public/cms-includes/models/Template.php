@@ -123,6 +123,20 @@ class Template extends Database
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function edit_page($id, $page_title, $content, $visibility)
+    {
+        //make sure it's an int
+        $id = intval($id);
+        //change all to id=:id so avoid sql injections
+        $sql = "UPDATE page SET page_title = :page_title, content = :content, visibility = :visibility WHERE id=:id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':page_title', $page_title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $content, PDO::PARAM_STR);
+        $stmt->bindValue(':visibility', $visibility, PDO::PARAM_BOOL);
+        return $stmt->execute();
+    }
 }
 
 ?>
