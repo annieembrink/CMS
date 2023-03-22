@@ -35,7 +35,10 @@ if($_POST)
     //trim
     //save value if only one is filled
     if(!empty($page_title) && !empty($content)) {
-        $result = $template->create_page($page_title, $content, $visibility);
+        $result = $template->create_page($_SESSION['user_id'], $page_title, $content, $visibility);
+        header('Location: allpages.php');
+        $_SESSION['message'] = "Successfully created page!";
+        exit();
     } else {
         $_SESSION['message'] = "All input fields have to be filled";
     }
@@ -77,9 +80,9 @@ if($_POST)
         <label for="content">Content</label>
         <textarea required name="content" id="content" cols="30" rows="10"></textarea>
 
-        <input type="radio" name="visibility" id="public" value="true" <?php if (!$visibility) { echo "checked"; } ?>>Public
+        <input type="radio" name="visibility" id="public" value="true" <?php if ($visibility) { echo "checked"; } ?>>Public
         
-        <input type="radio" name="visibility" id="private" value="false" <?php if ($visibility) { echo "checked"; } ?>>Draft
+        <input type="radio" name="visibility" id="private" value="false" <?php if (!$visibility) { echo "checked"; } ?>>Draft
 
         <br>
         <input type="submit" value="submit">

@@ -98,10 +98,12 @@ class Template extends Database
         }
     }
 
-    public function create_page($page_title, $content, $visibility)
+    public function create_page($user_id, $page_title, $content, $visibility)
     {
-        $sql = "INSERT INTO page (page_title, content, visibility) VALUES (:page_title, :content, :visibility)";
+        $user_id = intval($user_id);
+        $sql = "INSERT INTO page (user_id, page_title, content, visibility) VALUES (:user_id, :page_title, :content, :visibility)";
         $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':page_title', $page_title, PDO::PARAM_STR);
         $stmt->bindValue(':content', $content, PDO::PARAM_STR);
         $stmt->bindValue(':visibility', $visibility, PDO::PARAM_BOOL);
