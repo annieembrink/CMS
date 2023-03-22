@@ -99,6 +99,14 @@ class Template extends Database
         $stmt->bindValue(':visibility', $visibility, PDO::PARAM_BOOL);
         $stmt->execute();
     }
+
+    public function view_page($id)
+    {
+        $pagequery = "SELECT * FROM page WHERE id=$id";
+        $stmt = $this->db->prepare($pagequery);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 
 ?>

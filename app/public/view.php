@@ -18,30 +18,7 @@ $template = new Template();
 
 $title = "Preview"; 
 $id = $_GET['id'];
-
-// Query the database
-$sqlquery = "SELECT * FROM page WHERE id=$id";
-$result = $pdo->query($sqlquery);
-$page = $result->fetch();
-
-echo $page;
-
-if($_POST) 
-{
-
-    $page_title = $_POST['page_title'];
-    $content = $_POST['content'];
-    $visibility = $_POST['visibility'];
-
-    //trim
-    //save value if only one is filled
-    if(!empty($page_title) && !empty($content)) {
-        $result = $template->create_page($page_title, $content, $visibility);
-    } else {
-        $_SESSION['message'] = "All input fields have to be filled";
-    }
-    
-}
+$page = $template->view_page($id);
 
 ?>
 

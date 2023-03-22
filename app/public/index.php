@@ -62,22 +62,6 @@ $template = new Template();
             
         }
 
-        // Render the data
-        // echo "<section>";
-        // while($row = $result) {
-        //     $id = $row['id'];
-        //     echo "<aside>
-        //             <p>" . $row['content'] . "</p>
-        //             <div>
-        //                 <a href='delete.php?id=$id'>Delete</a>
-        //                 <a href='edit.php?id=$id'>Edit</a>
-        //                 <a href='view.php?id=$id'>View</a>
-        //             </div>
-        //         </aside>
-        //         <hr>";
-        // }
-        // echo "</section>";
-
     ?>
     </main>
 </body>
