@@ -47,7 +47,7 @@ $template = new Template();
 
         foreach ($result as $row) {
             # code...
-            if($row['visibility'] == 1) {
+            // if($row['visibility'] == 1) {
                 $id = $row['id']; 
 
                 echo "<aside>
@@ -60,7 +60,7 @@ $template = new Template();
             </aside>
             <hr>";
             }
-            }
+            // }
               
     ?>
     </main>

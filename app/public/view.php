@@ -18,6 +18,7 @@ $template = new Template();
 
 $title = "Preview"; 
 $id = $_GET['id'];
+$all_pages = $template->select_all_pages();
 $page = $template->view_page($id);
 
 ?>
@@ -43,8 +44,18 @@ $page = $template->view_page($id);
     ?>
 
     <a id="" href="allpages.php">Back</a>
+    <nav>
+        <ul>
+            <?php
+           foreach ($all_pages as $one_page) {
+            # code...
+            $id = $one_page['id']; 
 
-    <h1>Preview page</h1>
+            echo "<li><a href='view.php?id=$id'>" . $one_page['page_title'] . "</a></li>";
+           }
+            ?>
+        </ul>
+    </nav>
 
     <?php 
         $Parsedown = new Parsedown();
