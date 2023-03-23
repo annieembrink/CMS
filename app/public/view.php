@@ -59,8 +59,10 @@ $page = $template->view_page($id);
 
     <?php 
         $Parsedown = new Parsedown();
+        $html_title = $Parsedown->text($page['page_title']);
         $html = $Parsedown->text($page['content']);
 
+        echo $html_title;
         echo $html;
     ?>
     
