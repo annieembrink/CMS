@@ -49,17 +49,20 @@ $all_pages = $template->select_all_pages();
     <h1>Dashboard</h1>
     <h2>Welcome <?= $logged_in_user['username']?></h2>
 
-    <h4>All users in your project: </h4>
+    <h4>Contributers: </h4>
     <?php
     foreach ($all_users as $user) {
         echo "<p>" . $user['username'] . "</p>";
     }
     ?>
-    <h4>Published pages yet: </h4>
+    <h4>Published pages: </h4>
     <?php
     foreach ($all_pages as $page) {
+        //Removes symbols but keeps letters
+        $just_letters = preg_replace('/[^\p{L}\p{N}\s]/u', '', $page['page_title']);
+        $correct_syntax = ucfirst(strtolower($just_letters));
         if($page['visibility'] == 1) {
-            echo "<p>" . $page['page_title'] . "</p>";
+            echo "<p>" . $correct_syntax . "</p>";
         }
     }
     ?>
