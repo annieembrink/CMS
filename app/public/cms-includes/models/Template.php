@@ -27,8 +27,9 @@ class Template extends Database
 
     public function select_one_user($id)
     {
-        $sql = "SELECT * FROM user WHERE id=$id";
+        $sql = "SELECT * FROM user WHERE id=:id";
         $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -36,8 +37,9 @@ class Template extends Database
     public function register($username, $hashed_password)
     {
         try {
-            $user_query = "SELECT * FROM user WHERE username = '$username'";
+            $user_query = "SELECT * FROM user WHERE username=:username";
             $stmt = $this->db->prepare($user_query);
+            $stmt->bindValue(':username', $username, PDO::PARAM_STR);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -51,9 +53,7 @@ class Template extends Database
                 $stmt->bindValue(':username', $username, PDO::PARAM_STR);
                 $stmt->bindValue(':password', $hashed_password, PDO::PARAM_STR);
                 $stmt->execute();
-
-                $result = $this->db->lastInsertId();
-                
+                $this->db->lastInsertId();
                 $_SESSION['message'] = "Successfully created user!";
                 header("location: login.php");
                 exit();
@@ -67,8 +67,9 @@ class Template extends Database
     public function login($username, $form_password)
     {
         try {
-            $user_query = "SELECT * FROM user WHERE username = '$username'";
+            $user_query = "SELECT * FROM user WHERE username=:username";
             $stmt = $this->db->prepare($user_query);
+            $stmt->bindValue(':username', $username, PDO::PARAM_STR);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -112,15 +113,16 @@ class Template extends Database
 
     public function view_page($id)
     {
-        $pagequery = "SELECT * FROM page WHERE id=$id";
+        $pagequery = "SELECT * FROM page WHERE id=:id";
         $stmt = $this->db->prepare($pagequery);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function delete_page($id)
     {
-        $sql = "DELETE FROM page WHERE id=$id";
+        $sql = "DELETE FROM page WHERE id=:id";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
