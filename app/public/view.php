@@ -9,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 include_once 'cms-config.php';
-include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
 include_once ROOT . '/cms-includes/models/Template.php';
 require_once "Parsedown.php";
@@ -29,7 +28,7 @@ $page = $template->view_page($id);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> -->
     <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title><?php echo $title ?></title>
 </head>
@@ -43,15 +42,16 @@ $page = $template->view_page($id);
         }
     ?>
 
-    <a id="" href="allpages.php">Back</a>
+    <p class="mt bg-white"><a id="" href="allpages.php">Back</a></p>
     <nav>
-        <ul>
+        <ul class="list-style flex">
             <?php
            foreach ($all_pages as $one_page) {
             # code...
             $id = $one_page['id']; 
-
-            echo "<li><a href='view.php?id=$id'>" . $one_page['page_title'] . "</a></li>";
+            $just_letters = preg_replace('/[^\p{L}\p{N}\s]/u', '', $one_page['page_title']);
+            $correct_syntax = ucfirst(strtolower($just_letters));
+            echo "<li><a href='view.php?id=$id'>" . $correct_syntax . "</a></li>";
            }
             ?>
         </ul>

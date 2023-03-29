@@ -9,12 +9,11 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 include_once 'cms-config.php';
-include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
-include_once ROOT . '/cms-includes/models/Template.php';
+include_once ROOT . '/cms-includes/models/Page.php';
 require_once "Parsedown.php";
 
-$template = new Template();
+$page_template = new Page();
 
 $title = "Edit"; 
 
@@ -25,7 +24,7 @@ if (isset($_GET['id'])) {
 // Retrieve the page ID from the session variable
 if (isset($_SESSION['page_id'])) {
     $page_id = $_SESSION['page_id'];
-    $page = $template->view_page($page_id);
+    $page = $page_template->view_page($page_id);
     $page_title = $page['page_title']; 
     $content = $page['content']; 
     $visibility = $page['visibility'];
@@ -50,7 +49,7 @@ if($_POST) {
     if(!empty($page_title) && !empty($content)) {
         //passinfo bout who changed page? update user_id in page?
         //Update when page was edited?
-        $result = $template->edit_page($_SESSION['page_id'], $page_title, $content, $visibility);
+        $result = $page_template->edit_page($_SESSION['page_id'], $page_title, $content, $visibility);
         header('Location: allpages.php');
         unset($_SESSION['page_id']);
         $_SESSION['message'] = "Successfully updated your page!";
@@ -71,7 +70,7 @@ if($_POST) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> -->
     <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title><?php echo $title ?></title>
 </head>
@@ -87,24 +86,22 @@ if($_POST) {
 
 <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
 
-    <a id="logout" href="logout.php">Logout</a>
-
     <h1>Edit page</h1>
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form class="flex column" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-        <label for="page_title">Page title</label>
+        <label class="mt mb" for="page_title">Page title</label>
         <input required type="text" name="page_title" id="page_title" value="<?=$page_title?>">
 
-        <label for="content">Content</label>
+        <label class="mt mb" for="content">Content</label>
         <textarea required name="content" id="content" cols="30" rows="10"><?php echo $content ?></textarea>
 
+        <div class="mt">
         <input type="radio" name="visibility" id="public" value="true" <?php if ($visibility) { echo "checked"; } ?>>Public
         
         <input type="radio" name="visibility" id="private" value="false" <?php if (!$visibility) { echo "checked"; } ?>>Draft
-
-        <br>
-        <input type="submit" value="submit">
+        </div>
+        <input class="btn mt" type="submit" value="submit">
     </form>
     
 </body>

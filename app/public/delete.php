@@ -9,15 +9,15 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 include_once 'cms-config.php';
-include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
-include_once ROOT . '/cms-includes/models/Template.php';
+include_once ROOT . '/cms-includes/models/Page.php';
 require_once "Parsedown.php";
 
-$template = new Template();
+$page_template = new Page();
+
 $id = $_GET['id'];
 
-$result = $template->delete_page($id);
+$result = $page_template->delete_page($id);
 
 if($result == 1) {
     header('Location: allpages.php');
@@ -30,7 +30,7 @@ if($result == 1) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> -->
     <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title><?php echo $title ?></title>
 </head>
@@ -46,7 +46,6 @@ if($result == 1) {
 
 <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
 
-    <a id="logout" href="logout.php">Logout</a>
     <a href="allpages.php">Published</a>
     
 </body>

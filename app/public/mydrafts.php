@@ -9,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 include_once 'cms-config.php';
-include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
 include_once ROOT . '/cms-includes/models/Template.php';
 require_once "Parsedown.php";
@@ -22,7 +21,7 @@ $template = new Template();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> 
+    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">  -->
     <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title>Pages</title>
 </head>
@@ -36,7 +35,6 @@ $template = new Template();
     }
     ?>
     <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
-    <a href="logout.php">Logout</a>
     <h1>Drafts</h1>
     <?php 
         // Query the database
@@ -51,12 +49,14 @@ $template = new Template();
                 $id = $row['id']; 
 
                 echo "<aside>
-                <p>" . $row['page_title'] . "</p>
-                <small> Created by user_id: " . $created_by_user['username'] . "</small>
-                <div>
+                <h3>" . $row['page_title'] . "</h3>
+                <div class='flex justify'>
+                <p> Created by user: " . $created_by_user['username'] . "</p>
+                <span>
                     <a href='delete.php?id=$id'>Delete</a>
                     <a href='edit.php?id=$id'>Edit</a>
                     <a href='view.php?id=$id'>View</a>
+                </span>
                 </div>
             </aside>
             <hr>";

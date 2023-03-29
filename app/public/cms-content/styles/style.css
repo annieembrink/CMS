@@ -1,11 +1,20 @@
+* {
+    font-family: monospace;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 body {
-    max-width: 70vw;
+    max-width: 50vw;
     margin: auto;
     position: relative;
+    background-color: black;
+    color: white;
 }
 
 nav {
     margin-bottom: 0;
+    margin: 20px 0;
     position: relative;
 }
 
@@ -14,3 +23,59 @@ nav {
     margin: auto 0.5rem;
 }
 
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.justify {
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    max-width: 10vw;
+}
+
+.radius {
+    border-radius: 10px;
+}
+
+.list-style {
+    list-style: none;
+    padding-left: 0;
+}
+
+a {
+    text-decoration: none;
+    margin: 0 20px 0 0;
+    color: white;
+}
+
+.mt {
+    margin-top: 20px;
+}
+
+.mb {
+    margin-bottom: 5px;
+}
+
+hr, h1 {
+    margin-bottom: 20px;
+}
+
+.bg-white {
+    background-color: white;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.bg-white a {
+    color: black;
+    text-align: center;
+    margin: 0;
+}

@@ -179,7 +179,7 @@ Sidan visar header, footer och ett nav element via php include(). Sidan inkluder
 
 ```php
 include_once 'cms-config.php';
-include_once ROOT . '/cms-includes/global-functions.php';
+;
 include_once ROOT . '/cms-includes/models/Database.php';
 ```
 

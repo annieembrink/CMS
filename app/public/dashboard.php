@@ -9,16 +9,17 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 include_once 'cms-config.php';
-include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
-include_once ROOT . '/cms-includes/models/Template.php';
+include_once ROOT . '/cms-includes/models/Page.php';
+include_once ROOT . '/cms-includes/models/User.php';
 
-$template = new Template();
+$page_template = new Page();
+$user_template = new User();
 
 $title = "Dashboard"; 
-$logged_in_user = $template->select_one_user($_SESSION['user_id']);
-$all_users = $template->select_all_users();
-$all_pages = $template->select_all_pages();
+$logged_in_user = $user_template->select_one_user($_SESSION['user_id']);
+$all_users = $user_template->select_all_users();
+$all_pages = $page_template->select_all_pages();
 
 ?>
 
@@ -28,7 +29,7 @@ $all_pages = $template->select_all_pages();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> -->
     <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title><?php echo $title ?></title>
 </head>
@@ -44,18 +45,20 @@ $all_pages = $template->select_all_pages();
 
 <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
 
-    <a id="logout" href="logout.php">Logout</a>
-
     <h1>Dashboard</h1>
-    <h2>Welcome <?= $logged_in_user['username']?></h2>
+    <h2 class="mb">Welcome <?= $logged_in_user['username']?></h2>
 
-    <h4>Contributers: </h4>
+    <div>
+    <h3d>Contributors: </h3d>
     <?php
     foreach ($all_users as $user) {
         echo "<p>" . $user['username'] . "</p>";
     }
     ?>
-    <h4>Published pages: </h4>
+    </div>
+    
+    <div class="mt">
+    <h3>Published pages: </h3>
     <?php
     foreach ($all_pages as $page) {
         //Removes symbols but keeps letters
@@ -66,6 +69,20 @@ $all_pages = $template->select_all_pages();
         }
     }
     ?>
+    </div>
+    <div class="mt">
+    <h3>Drafts: </h3>
+    <?php
+    foreach ($all_pages as $page) {
+        //Removes symbols but keeps letters
+        $just_letters = preg_replace('/[^\p{L}\p{N}\s]/u', '', $page['page_title']);
+        $correct_syntax = ucfirst(strtolower($just_letters));
+        if($page['visibility'] == 0) {
+            echo "<p>" . $correct_syntax . "</p>";
+        }
+    }
+    ?>
+    </div>
     
 </body>
 </html>

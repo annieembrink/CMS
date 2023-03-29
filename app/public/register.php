@@ -3,8 +3,12 @@
 declare(strict_types=1);
 session_start();
 
+if (isset($_SESSION['user_id'])) {
+    header('Location: dashboard.php');
+    exit;
+}
+
 include_once 'cms-config.php';
-include_once ROOT . '/cms-includes/global-functions.php';
 include_once ROOT . '/cms-includes/models/Database.php';
 include_once ROOT . '/cms-includes/models/Template.php';
 
@@ -31,7 +35,7 @@ if($_POST)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> -->
     <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title><?php echo $title ?></title>
 </head>
@@ -53,8 +57,8 @@ if($_POST)
 <!-- REGISTER -->
 <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
 
-<input type="text" name="username" placeholder="username" value="<?= $username ?>">
-<input type="password" name="form_password" placeholder="password" value="<?= $form_password ?>">
+<input type="text" name="username" placeholder="username" value="<?php echo $username ?>">
+<input type="password" name="form_password" placeholder="password" value="<?php $form_password ?>">
 <input type="submit" value="register">
 
 </form>
