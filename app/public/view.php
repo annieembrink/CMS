@@ -51,15 +51,17 @@ if($page['visibility'] == 0 && !isset($_SESSION['user_id'])) {
     <nav>
         <ul class="list-style flex">
             <?php
-           foreach ($all_pages as $one_page) {
-            # code...
-            if ($one_page['visibility'] == 1) {
-                $id = $one_page['id']; 
-                $just_letters = preg_replace('/[^\p{L}\p{N}\s]/u', '', $one_page['page_title']);
-                $correct_syntax = ucfirst(strtolower($just_letters));
-                echo "<li><a href='view.php?id=$id'>" . $correct_syntax . "</a></li>";
+            if($page['visibility'] == 1) {
+                foreach ($all_pages as $one_page) {
+                    # code...
+                    if ($one_page['visibility'] == 1) {
+                        $id = $one_page['id']; 
+                        $just_letters = preg_replace('/[^\p{L}\p{N}\s]/u', '', $one_page['page_title']);
+                        $correct_syntax = ucfirst(strtolower($just_letters));
+                        echo "<li><a href='view.php?id=$id'>" . $correct_syntax . "</a></li>";
+                    }
+                   }
             }
-           }
             ?>
         </ul>
     </nav>
