@@ -1,27 +1,17 @@
-* {
+/* * {
     font-family: monospace;
     margin: 0;
     box-sizing: border-box;
 }
 
 body {
-    max-width: 50vw;
+    max-width: 60vw;
     margin: auto;
-    position: relative;
     background-color: black;
     color: white;
 }
 
-nav {
-    margin-bottom: 0;
-    margin: 20px 0;
-    position: relative;
-}
 
-#logout {
-    position: absolute;
-    margin: auto 0.5rem;
-}
 
 .flex {
     display: flex;
@@ -35,10 +25,15 @@ nav {
     justify-content: space-between;
 }
 
+.align-bottom {
+    display: flex;
+    align-items: flex-end;
+}
+
+
 .btn {
-    padding: 10px 20px;
+    padding: 5px 10px;
     border: none;
-    max-width: 10vw;
 }
 
 .radius {
@@ -50,12 +45,6 @@ nav {
     padding-left: 0;
 }
 
-a {
-    text-decoration: none;
-    margin: 0 20px 0 0;
-    color: white;
-}
-
 .mt {
     margin-top: 20px;
 }
@@ -64,18 +53,78 @@ a {
     margin-bottom: 5px;
 }
 
-hr, h1 {
+h1 {
     margin-bottom: 20px;
 }
 
 .bg-white {
+    text-decoration: none;
     background-color: white;
+    color: black;
     padding: 5px 10px;
     display: inline-block;
 }
 
-.bg-white a {
+.form-style {
+    background-color: white;
     color: black;
+    padding: 20px;
+    justify-content: center;
+}
+
+.form-style input[type=text] {
+    background-color: black;
+    color: white;
+}
+.form-style textarea {
+    background-color: black;
+    color: white;
+}
+
+
+input[type=text], input[type=password], textarea {
+    padding: 5px 10px;
+    border: none;
+}
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
     text-align: center;
+}
+
+.active-nav {
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-wrap: nowrap;
     margin: 0;
+}
+ */
+
+ body {
+    margin: auto;
+    max-width: 60vw;
+ }
+
+ nav {
+    margin-bottom: 0;
+}
+
+footer {
+    padding: 0;
+    margin-top: 50px;
+}
+
+main {
+    padding: 0;
 }

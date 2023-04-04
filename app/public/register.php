@@ -35,7 +35,7 @@ if($_POST)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
     <link rel="stylesheet" href="/cms-content/styles/style.css">
     <title><?php echo $title ?></title>
 </head>
@@ -44,7 +44,7 @@ if($_POST)
 <?php 
         // Write out message from other pages if exists
         if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-            echo "<article><aside><p>". $_SESSION['message'] . "</p></aside></article>";
+            echo "<article><aside><p class='bg-white mt'>". $_SESSION['message'] . "</p></aside></article>";
             unset( $_SESSION['message']); // remove it once it has been written
         }
     ?>
@@ -59,7 +59,7 @@ if($_POST)
 
 <input type="text" name="username" placeholder="username" value="<?php echo $username ?>">
 <input type="password" name="form_password" placeholder="password" value="<?php $form_password ?>">
-<input type="submit" value="register">
+<input class="btn mt" type="submit" value="register">
 
 </form>
 
