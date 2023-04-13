@@ -8,9 +8,9 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-include_once 'cms-config.php';
-include_once ROOT . '/cms-includes/models/Database.php';
-include_once ROOT . '/cms-includes/models/User.php';
+require_once 'User.php';
+require_once 'cms-config.php';
+require_once 'Database.php';
 
 $user_template = new User();
 
