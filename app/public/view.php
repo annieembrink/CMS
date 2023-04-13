@@ -3,22 +3,17 @@
 declare(strict_types=1);
 session_start();
 
-// if (!isset($_SESSION['user_id'])) {
-//     header('Location: login.php');
-//     exit;
-// }
-
 include_once 'cms-config.php';
 include_once ROOT . '/cms-includes/models/Database.php';
-include_once ROOT . '/cms-includes/models/Template.php';
+include_once ROOT . '/cms-includes/models/Page.php';
 require_once "Parsedown.php";
 
-$template = new Template();
+$page_template = new Page();
 
 $title = "Preview"; 
 $id = $_GET['id'];
-$all_pages = $template->select_all_pages();
-$page = $template->view_page($id);
+$all_pages = $page_template->select_all_pages();
+$page = $page_template->view_page($id);
 
 if($page['visibility'] == 0 && !isset($_SESSION['user_id'])) {
     header('Location: login.php');
@@ -53,7 +48,6 @@ if($page['visibility'] == 0 && !isset($_SESSION['user_id'])) {
             <?php
             if($page['visibility'] == 1) {
                 foreach ($all_pages as $one_page) {
-                    # code...
                     if ($one_page['visibility'] == 1) {
                         $id = $one_page['id']; 
                         $just_letters = preg_replace('/[^\p{L}\p{N}\s]/u', '', $one_page['page_title']);

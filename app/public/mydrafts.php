@@ -39,11 +39,8 @@ $user_template = new User();
     <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
     <h1>Drafts</h1>
     <?php 
-        // Query the database
-        // $sqlquery = "SELECT * FROM page";
+       
         $result = $page_template->select_all_pages();
-
-        // print_r($result);
 
         foreach ($result as $row) {
             $created_by_user = $user_template->select_one_user($row['user_id']);

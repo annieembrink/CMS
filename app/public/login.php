@@ -18,9 +18,6 @@ $title = "Login";
 
 if($_POST) 
 {
-    //if input field is not empty...
-    //use trim
-    //dont allow all signs...
     $username = $_POST['username'];
     $form_password = $_POST['form_password'];
 

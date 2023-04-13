@@ -15,21 +15,3 @@
         ?>
     </ul>
 </nav>
-
-<!-- <script>
-    const li = document.getElementById('nav-ul').getElementsByTagName('li');
-    const liArr = Array.from(li)
-
-    liArr.forEach(element => {
-        element.addEventListener('click', (e) => {
-            // Remove the 'active' class from all other elements
-            liArr.forEach(el => {
-                if (el !== e.target) {
-                    el.classList.remove('active-nav');
-                }
-            });
-            // Toggle the 'active' class on the clicked element
-            e.target.classList.toggle('active-nav');
-        });
-    });
-</script> -->
