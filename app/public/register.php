@@ -10,9 +10,9 @@ if (isset($_SESSION['user_id'])) {
 
 include_once 'cms-config.php';
 include_once ROOT . '/cms-includes/models/Database.php';
-include_once ROOT . '/cms-includes/models/Template.php';
+include_once ROOT . '/cms-includes/models/User.php';
 
-$template = new Template();
+$user_template = new User();
 $username = "";
 $form_password = "";
 
@@ -24,7 +24,7 @@ if($_POST)
 
     $form_password = $_POST['form_password'];
     $hashed_password = password_hash($form_password, PASSWORD_DEFAULT);
-    $result = $template->register($username, $hashed_password);
+    $result = $user_template->register($username, $hashed_password);
 }
 
 ?>
@@ -50,7 +50,6 @@ if($_POST)
     ?>
 
 <?php include ROOT . '/cms-includes/partials/nav.php'; ?>
-
 
 <h1>Create account</h1>
     

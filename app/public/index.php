@@ -10,10 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 include_once 'cms-config.php';
 include_once ROOT . '/cms-includes/models/Database.php';
-include_once ROOT . '/cms-includes/models/Template.php';
 require_once "Parsedown.php";
-
-$template = new Template();
 
 ?>
 <html lang="en">
@@ -33,34 +30,7 @@ $template = new Template();
         unset( $_SESSION['message']); // remove it once it has been written
     }
     ?>
-    <h1>Pages</h1>
-    <?php 
-        // Query the database
-        $sqlquery = "SELECT * FROM page";
-        $result = $template->select_all_pages($sqlquery);
-
-        // print_r($result);
-
-        foreach ($result as $row) {
-            # code...
-            // print_r($key);
-            $id = $row['id']; 
-
-            echo "<aside>
-            <p>" . $row['page_title'] . "</p>
-            <p>" . $row['content'] . "</p>
-            <p>" . $row['visibility'] . "</p>
-            <div>
-                <a href='delete.php?id=$id'>Delete</a>
-                <a href='edit.php?id=$id'>Edit</a>
-                <a href='view.php?id=$id'>View</a>
-            </div>
-        </aside>
-        <hr>";
-            
-        }
-
-    ?>
+    
     </main>
 </body>
 </html>

@@ -10,9 +10,9 @@ if (isset($_SESSION['user_id'])) {
 
 include_once 'cms-config.php';
 include_once ROOT . '/cms-includes/models/Database.php';
-include_once ROOT . '/cms-includes/models/Template.php';
+include_once ROOT . '/cms-includes/models/User.php';
 
-$template = new Template();
+$user_template = new User();
 
 $title = "Login"; 
 
@@ -24,7 +24,7 @@ if($_POST)
     $username = $_POST['username'];
     $form_password = $_POST['form_password'];
 
-    $result = $template->login($username, $form_password);
+    $result = $user_template->login($username, $form_password);
 }
 
 ?>
